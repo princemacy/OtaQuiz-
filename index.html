@@ -33,21 +33,21 @@
    "répare" (s'anime, se referme) à chaque bonne réponse en mode quiz.
    ============================================ */
 :root {
-  --void: #0A0714;
-  --nebula: #150E29;
-  --nebula-2: #1E1538;
-  --nebula-3: #2A1D4D;
-  --violet: #8B5CF6;
-  --violet-dim: rgba(139,92,246,0.35);
-  --magenta: #EC4899;
+  --void: #0F0A1F;
+  --nebula: #1A1030;
+  --nebula-2: #241640;
+  --nebula-3: #331D5C;
+  --violet: #9D4EFF;
+  --violet-dim: rgba(157,78,255,0.35);
+  --magenta: #FF2E9F;
   --cyan: #38E4E0;
   --gold: #FFC857;
   --danger: #FF5C6C;
-  --ink: #F3EEFF;
-  --muted: rgba(224,214,255,0.60);
-  --muted-2: rgba(224,214,255,0.38);
-  --line: rgba(139,92,246,0.22);
-  --rift: linear-gradient(90deg, var(--violet), var(--magenta) 50%, var(--cyan));
+  --ink: #F8F0FF;
+  --muted: rgba(230,218,255,0.62);
+  --muted-2: rgba(230,218,255,0.40);
+  --line: rgba(157,78,255,0.28);
+  --rift: linear-gradient(135deg, var(--violet), var(--magenta));
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -552,7 +552,89 @@ body {
 }
 .continue-info small { font-size: 10px; color: var(--muted-2); font-family: 'Space Grotesk', sans-serif; margin-top: 4px; display: block; }
 
-/* Bottom nav */
+/* Hero illustration zone + big JOUER button (nouveau style, inspiré des références) */
+.play-hero {
+  position: relative;
+  border-radius: 26px;
+  overflow: hidden;
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20px 20px 22px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 100% 70% at 50% 0%, rgba(157,78,255,0.45), transparent 65%),
+    radial-gradient(ellipse 90% 60% at 50% 100%, rgba(255,46,159,0.35), transparent 60%),
+    linear-gradient(180deg, var(--nebula-3), var(--nebula));
+  border: 1px solid var(--line);
+}
+.play-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: conic-gradient(from 90deg at 50% 30%, transparent, rgba(255,46,159,0.18), transparent 40%);
+  animation: heroSpin 10s linear infinite;
+}
+.play-hero-glyph {
+  position: relative;
+  width: 88px; height: 88px;
+  margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 26px;
+  background: linear-gradient(145deg, var(--violet), var(--magenta));
+  transform: rotate(45deg);
+  box-shadow: 0 0 44px rgba(255,46,159,0.5);
+  animation: coreGlow 2.4s ease-in-out infinite;
+}
+.play-hero-glyph svg { transform: rotate(-45deg); width: 42px; height: 42px; }
+.play-hero-eventtag {
+  position: relative;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 14px; cursor: pointer;
+}
+.btn-play-huge {
+  position: relative;
+  width: 100%;
+  padding: 17px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, var(--violet), var(--magenta));
+  border: none;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(255,46,159,0.4), 0 0 0 1px rgba(255,255,255,0.06) inset;
+  transition: transform 0.15s ease;
+}
+.btn-play-huge:active { transform: scale(0.97); }
+
+.icon-nav-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 16px 0 6px;
+}
+.icon-nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  cursor: pointer;
+}
+.icon-nav-badge {
+  width: 52px; height: 52px;
+  border-radius: 16px;
+  background: var(--nebula);
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.icon-nav-item:active .icon-nav-badge { transform: scale(0.92); border-color: var(--magenta); }
+.icon-nav-item span { font-size: 10.5px; font-weight: 600; color: var(--muted); text-align: center; }
+
+.icon-nav-row.circles .icon-nav-badge {
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--nebula-3), var(--nebula-2));
+}
 .bottom-nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -1074,23 +1156,39 @@ body {
 }
 .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 
-.auth-social { display: flex; gap: 10px; margin-bottom: 18px; }
+.auth-social { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
 .auth-social-btn {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px;
+  gap: 10px;
+  padding: 13px;
   border-radius: 14px;
   background: var(--nebula);
   border: 1.5px solid var(--line);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.15s ease, border-color 0.15s ease;
+  width: 100%;
 }
-.auth-social-btn:active { transform: scale(0.96); }
+.auth-social-btn:active { transform: scale(0.97); }
+.auth-guest-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: 14px;
+  background: transparent;
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 14px;
+  transition: transform 0.15s ease;
+}
+.auth-guest-btn:active { transform: scale(0.97); }
+.auth-legal { font-size: 10.5px; color: var(--muted-2); text-align: center; line-height: 1.5; }
+.auth-legal a { color: var(--cyan); text-decoration: none; }
 
 .auth-guest {
   text-align: center;
@@ -2050,13 +2148,15 @@ button:focus-visible, .quiz-option:focus-visible, .nav-item:focus-visible, .quic
     <div class="auth-social">
       <div class="auth-social-btn" id="btnGoogleLogin">
         <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 10.2v3.9h5.5c-.25 1.4-1.7 4.1-5.5 4.1-3.3 0-6-2.7-6-6.2s2.7-6.2 6-6.2c1.9 0 3.15.8 3.87 1.5l2.65-2.55C16.9 3.05 14.65 2 12 2 6.9 2 2.8 6.1 2.8 11.2S6.9 20.4 12 20.4c6.2 0 8.9-4.35 8.9-8.35 0-.55-.05-.95-.15-1.35H12z"/></svg>
-        Google
+        Continuer avec Google
       </div>
-      <div class="auth-social-btn" id="btnGuestLogin">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#F3EEFF" stroke-width="1.8"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="#F3EEFF" stroke-width="1.8" stroke-linecap="round"/></svg>
-        Invité
+      <div class="auth-social-btn" id="btnFacebookLogin">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#1877F2" d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12z"/></svg>
+        Continuer avec Facebook
       </div>
     </div>
+    <button class="auth-guest-btn" id="btnGuestLogin">Jouer en invité</button>
+    <div class="auth-legal">En te connectant, tu acceptes nos <a href="#">CGU</a> et notre <a href="#">Politique de confidentialité</a>.</div>
   </section>
 
   <!-- ============ FORGOT PASSWORD SCREEN ============ -->
@@ -2119,34 +2219,50 @@ button:focus-visible, .quiz-option:focus-visible, .nav-item:focus-visible, .quic
     </div>
 
     <div class="home-scroll">
-      <!-- Hero banner -->
-      <div class="hero-banner">
-        <div class="hero-eyebrow" id="btnHeroEyebrow" style="cursor:pointer;">Événement de saison ›</div>
-        <div class="hero-title display">RAID DU<br>GARDIEN CRAMOISI</div>
-        <div class="hero-sub">Affronte le boss saisonnier avec ta guilde avant la fin du compte à rebours.</div>
-        <button class="hero-cta" id="btnHeroPlay">
-          Jouer maintenant
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#0A0714" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+      <!-- Hero + gros bouton JOUER -->
+      <div class="play-hero">
+        <div class="play-hero-eventtag" id="btnHeroEyebrow">⚔ Raid du Gardien Cramoisi — 2j 14h ›</div>
+        <div class="play-hero-glyph"><svg viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-14 9V3z" fill="#fff"/></svg></div>
+        <button class="btn-play-huge" id="btnHeroPlay">JOUER</button>
       </div>
 
-      <!-- Quick actions -->
-      <div class="section-label"><h3>Accès rapide</h3></div>
-      <div class="quick-actions">
-        <div class="quick-card" id="btnQuickMissions">
-          <div class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#38E4E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <span>Missions</span>
-          <small>2/3</small>
+      <!-- Rangée d'accès rapide (icônes carrées) -->
+      <div class="icon-nav-row">
+        <div class="icon-nav-item" id="navEvents">
+          <div class="icon-nav-badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="#FF2E9F" stroke-width="1.8"/><path d="M3 10h18M8 3v4M16 3v4" stroke="#FF2E9F" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <span>Événements</span>
         </div>
-        <div class="quick-card" id="btnQuickDuel">
-          <div class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2" stroke="#EC4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <span>Duel</span>
-          <small>En ligne</small>
+        <div class="icon-nav-item" id="navShop">
+          <div class="icon-nav-badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 9h18l-1.5 11a2 2 0 01-2 1.7H6.5a2 2 0 01-2-1.7L3 9zM8 9V6a4 4 0 018 0v3" stroke="#9D4EFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span>Boutique</span>
         </div>
-        <div class="quick-card" id="btnQuickRank">
-          <div class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 15a6 6 0 100-12 6 6 0 000 12zM8.21 13.89L7 23l5-3 5 3-1.21-9.12" stroke="#FFC857" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="icon-nav-item" id="btnQuickRank">
+          <div class="icon-nav-badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 15a6 6 0 100-12 6 6 0 000 12zM8.21 13.89L7 23l5-3 5 3-1.21-9.12" stroke="#FFC857" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <span>Classement</span>
-          <small>Rang #342</small>
+        </div>
+        <div class="icon-nav-item" id="navProfileQuick">
+          <div class="icon-nav-badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#38E4E0" stroke-width="1.8"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="#38E4E0" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <span>Profil</span>
+        </div>
+      </div>
+
+      <!-- Rangée secondaire (icônes rondes) -->
+      <div class="icon-nav-row circles">
+        <div class="icon-nav-item" id="btnQuickMissions">
+          <div class="icon-nav-badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#FF2E9F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span>Missions</span>
+        </div>
+        <div class="icon-nav-item" id="btnDaily">
+          <div class="icon-nav-badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 12v9H4v-9M2 7h20v5H2V7zM12 22V7" stroke="#FFC857" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <span>Coffre</span>
+        </div>
+        <div class="icon-nav-item" id="navEventsGift">
+          <div class="icon-nav-badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.5 5.7 21l2.3-7.2-6-4.6h7.6L12 2z" fill="#9D4EFF"/></svg></div>
+          <span>Cadeaux</span>
+        </div>
+        <div class="icon-nav-item" id="btnQuickDuel">
+          <div class="icon-nav-badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2" stroke="#38E4E0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span>Duel</span>
         </div>
       </div>
 
@@ -2163,7 +2279,7 @@ button:focus-visible, .quiz-option:focus-visible, .nav-item:focus-visible, .quic
 
       <!-- Daily reward -->
       <div class="section-label"><h3>Récompense du jour</h3></div>
-      <div class="daily-strip" id="btnDaily">
+      <div class="daily-strip" id="btnDailyStrip">
         <div class="daily-strip-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 12v9H4v-9M2 7h20v5H2V7zM12 22V7M12 7c-1.5 0-3-1.5-3-3.5S9.5 1 11 1s3 1.5 3 3v3M12 7c1.5 0 3-1.5 3-3.5S14.5 1 13 1s-3 1.5-3 3v3" stroke="#0A0714" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="daily-strip-text">
           <strong>Jour 4 de suite !</strong>
@@ -2486,1373 +2602,4 @@ button:focus-visible, .quiz-option:focus-visible, .nav-item:focus-visible, .quic
 
     <nav class="bottom-nav">
       <div class="nav-item" data-nav="home">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 10l9-7 9 7v10a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-        <span>Accueil</span>
-      </div>
-      <div class="nav-item" data-nav="collection">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/></svg></div>
-        <span>Collection</span>
-      </div>
-      <div class="nav-item" data-nav="play">
-        <div class="nav-icon-wrap" style="background:var(--rift);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-14 9V3z" fill="#0A0714"/></svg></div>
-        <span>Jouer</span>
-      </div>
-      <div class="nav-item active" data-nav="shop">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 9h18l-1.5 11a2 2 0 01-2 1.7H6.5a2 2 0 01-2-1.7L3 9zM8 9V6a4 4 0 018 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span>Boutique</span>
-      </div>
-      <div class="nav-item" data-nav="profile">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <span>Profil</span>
-      </div>
-    </nav>
-  </section>
-
-  <!-- ============ COLLECTION SCREEN ============ -->
-  <section class="screen" id="screen-collection" aria-label="Collection">
-    <div class="rift-line"></div>
-    <div class="collection-header">
-      <h2 class="display">COLLECTION</h2>
-      <p>Débloque des personnages, créatures et boss originaux en jouant.</p>
-    </div>
-    <div class="collection-scroll">
-      <div class="collection-progress-strip">
-        <span class="cp-count mono">32/96</span>
-        <div class="cp-track"><div class="cp-fill"></div></div>
-      </div>
-
-      <div class="collection-filter-row">
-        <div class="collection-filter active" data-cfilter="all">Tout</div>
-        <div class="collection-filter" data-cfilter="characters">Personnages</div>
-        <div class="collection-filter" data-cfilter="creatures">Créatures</div>
-        <div class="collection-filter" data-cfilter="bosses">Boss</div>
-        <div class="collection-filter" data-cfilter="worlds">Mondes</div>
-      </div>
-
-      <div class="collection-grid" id="collectionGrid">
-        <div class="collection-card cc-bg-1" data-name="Kael, Lame de Foudre" data-desc="Un chasseur d'ombre qui manie une lame chargée d'énergie électrique. Débloqué au chapitre 3 du mode Histoire." data-color="1">
-          <div class="cc-glow"></div>
-          <div class="cc-emblem"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L9 22l10-13.5H12.5L13 2z" fill="#EC4899"/></svg></div>
-          <div class="cc-name">Kael</div>
-          <div class="cc-rarity">Épique</div>
-        </div>
-        <div class="collection-card cc-bg-2" data-name="Unité ARGO-7" data-desc="Un mecha de reconnaissance équipé d'un noyau à énergie cyan. Débloqué en complétant la catégorie Mecha." data-color="2">
-          <div class="cc-glow"></div>
-          <div class="cc-emblem"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#38E4E0" stroke-width="2"/></svg></div>
-          <div class="cc-name">ARGO-7</div>
-          <div class="cc-rarity">Rare</div>
-        </div>
-        <div class="collection-card locked cc-bg-3">
-          <div class="cc-lock-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="#F3EEFF" stroke-width="1.8"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#F3EEFF" stroke-width="1.8"/></svg></div>
-          <div class="cc-emblem"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#FFC857" stroke-width="1.5"/></svg></div>
-          <div class="cc-name">???</div>
-          <div class="cc-rarity">Légendaire</div>
-        </div>
-        <div class="collection-card cc-bg-4" data-name="Spectre des Brumes" data-desc="Une créature spirituelle née des mondes Fantasy. Elle se nourrit des regrets abandonnés." data-color="4">
-          <div class="cc-glow"></div>
-          <div class="cc-emblem"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v20M4 8l8-6 8 6" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="cc-name">Spectre</div>
-          <div class="cc-rarity">Rare</div>
-        </div>
-        <div class="collection-card locked cc-bg-1">
-          <div class="cc-lock-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="#F3EEFF" stroke-width="1.8"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#F3EEFF" stroke-width="1.8"/></svg></div>
-          <div class="cc-emblem"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#FFC857" stroke-width="1.5"/></svg></div>
-          <div class="cc-name">???</div>
-          <div class="cc-rarity">Épique</div>
-        </div>
-        <div class="collection-card cc-bg-3" data-name="Gardien Cramoisi" data-desc="Le boss saisonnier actuel. Une entité ancienne réveillée par l'événement de la Faille." data-color="3">
-          <div class="cc-glow"></div>
-          <div class="cc-emblem"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.5 5.7 21l2.3-7.2-6-4.6h7.6L12 2z" fill="#FFC857"/></svg></div>
-          <div class="cc-name">Gardien</div>
-          <div class="cc-rarity">Boss</div>
-        </div>
-      </div>
-      <div style="height:20px;"></div>
-    </div>
-
-    <nav class="bottom-nav">
-      <div class="nav-item" data-nav="home">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 10l9-7 9 7v10a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-        <span>Accueil</span>
-      </div>
-      <div class="nav-item active" data-nav="collection">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/></svg></div>
-        <span>Collection</span>
-      </div>
-      <div class="nav-item" data-nav="play">
-        <div class="nav-icon-wrap" style="background:var(--rift);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-14 9V3z" fill="#0A0714"/></svg></div>
-        <span>Jouer</span>
-      </div>
-      <div class="nav-item" data-nav="shop">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 9h18l-1.5 11a2 2 0 01-2 1.7H6.5a2 2 0 01-2-1.7L3 9zM8 9V6a4 4 0 018 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span>Boutique</span>
-      </div>
-      <div class="nav-item" data-nav="profile">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <span>Profil</span>
-      </div>
-    </nav>
-  </section>
-
-  <!-- ============ RANK / LEADERBOARD SCREEN ============ -->
-  <section class="screen" id="screen-rank" aria-label="Classement">
-    <div class="rift-line"></div>
-    <div class="topbar">
-      <div class="topbar-avatar">
-        <div class="profile-back" id="btnRankBack" role="button" aria-label="Retour">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#F3EEFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;">CLASSEMENT</div>
-      <div style="width:34px;"></div>
-    </div>
-
-    <div class="rank-scroll">
-      <div class="rank-hero">
-        <div class="rank-hero-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6L22 9l-5 4.9 1.2 6.9L12 17.5 5.8 20.8 7 13.9 2 9l7.1-1L12 2z" fill="url(#rgGrad)"/><defs><linearGradient id="rgGrad" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#8B5CF6"/><stop offset="1" stop-color="#EC4899"/></linearGradient></defs></svg></div>
-        <div class="rank-hero-name display">CHASSEUR D'OMBRE</div>
-        <div class="rank-hero-sub mono">2 840 / 4 000 PTS vers Gardien</div>
-        <div class="rank-hero-progress">
-          <div class="rank-hero-track"><div class="rank-hero-fill"></div></div>
-          <div class="rank-hero-labels"><span>Chasseur</span><span>Gardien</span></div>
-        </div>
-      </div>
-
-      <div class="rank-ladder-title"><h3>Paliers de rang</h3></div>
-      <div class="rank-tier-row"><div class="rank-tier-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#8B5CF6" stroke-width="2"/></svg></div><div class="rank-tier-info"><strong>Rookie</strong><span>0 – 500 pts</span></div></div>
-      <div class="rank-tier-row"><div class="rank-tier-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M4 8l8-6 8 6" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/></svg></div><div class="rank-tier-info"><strong>Explorateur</strong><span>500 – 1200 pts</span></div></div>
-      <div class="rank-tier-row"><div class="rank-tier-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L9 22l10-13.5H12.5L13 2z" stroke="#8B5CF6" stroke-width="1.5"/></svg></div><div class="rank-tier-info"><strong>Traqueur</strong><span>1200 – 2200 pts</span></div></div>
-      <div class="rank-tier-row current"><div class="rank-tier-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.5 5.7 21l2.3-7.2-6-4.6h7.6L12 2z" fill="#38E4E0"/></svg></div><div class="rank-tier-info"><strong>Chasseur d'Ombre</strong><span>2200 – 4000 pts</span></div><div class="rank-tier-you">TOI</div></div>
-      <div class="rank-tier-row"><div class="rank-tier-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="#FFC857" stroke-width="1.5"/></svg></div><div class="rank-tier-info"><strong>Gardien</strong><span>4000 – 6500 pts</span></div></div>
-      <div class="rank-tier-row"><div class="rank-tier-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 9l10 13L22 9 12 2z" stroke="#FFC857" stroke-width="1.5"/></svg></div><div class="rank-tier-info"><strong>Légende</strong><span>6500 – 10000 pts</span></div></div>
-
-      <div class="rank-ladder-title" style="margin-top:22px;"><h3>Top joueurs — saison</h3></div>
-      <div class="leaderboard-row"><div class="lb-rank gold">1</div><div class="lb-avatar">凛</div><div class="lb-name">Rin_Katana</div><div class="lb-score mono">9 842</div></div>
-      <div class="leaderboard-row"><div class="lb-rank silver">2</div><div class="lb-avatar">武</div><div class="lb-avatar" style="display:none;"></div><div class="lb-name">Takeshi_X</div><div class="lb-score mono">9 210</div></div>
-      <div class="leaderboard-row"><div class="lb-rank bronze">3</div><div class="lb-avatar">星</div><div class="lb-name">HoshiVoid</div><div class="lb-score mono">8 977</div></div>
-      <div class="leaderboard-row"><div class="lb-rank">4</div><div class="lb-avatar">影</div><div class="lb-name">Kage_99</div><div class="lb-score mono">8 401</div></div>
-      <div class="leaderboard-row me"><div class="lb-rank">342</div><div class="lb-avatar">寿</div><div class="lb-name">Yuki_Sora (toi)</div><div class="lb-score mono">2 840</div></div>
-      <div style="height:20px;"></div>
-    </div>
-
-    <nav class="bottom-nav">
-      <div class="nav-item" data-nav="home">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 10l9-7 9 7v10a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-        <span>Accueil</span>
-      </div>
-      <div class="nav-item" data-nav="collection">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/></svg></div>
-        <span>Collection</span>
-      </div>
-      <div class="nav-item" data-nav="play">
-        <div class="nav-icon-wrap" style="background:var(--rift);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-14 9V3z" fill="#0A0714"/></svg></div>
-        <span>Jouer</span>
-      </div>
-      <div class="nav-item" data-nav="shop">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 9h18l-1.5 11a2 2 0 01-2 1.7H6.5a2 2 0 01-2-1.7L3 9zM8 9V6a4 4 0 018 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span>Boutique</span>
-      </div>
-      <div class="nav-item" data-nav="profile">
-        <div class="nav-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <span>Profil</span>
-      </div>
-    </nav>
-  </section>
-
-  <!-- ============ SETTINGS SCREEN ============ -->
-  <section class="screen" id="screen-settings" aria-label="Paramètres">
-    <div class="rift-line"></div>
-    <div class="settings-top">
-      <div class="profile-back" id="btnSettingsBack" role="button" aria-label="Retour" style="background:var(--nebula);border:1px solid var(--line);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#F3EEFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h2 class="display">PARAMÈTRES</h2>
-    </div>
-
-    <div class="settings-scroll">
-      <div class="settings-group">
-        <div class="settings-group-label">Préférences</div>
-        <div class="settings-row" id="rowLanguage">
-          <div class="settings-row-label">
-            <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#8B5CF6" stroke-width="1.8"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18" stroke="#8B5CF6" stroke-width="1.5"/></svg></div>
-            <div class="settings-row-text"><strong>Langue</strong></div>
-          </div>
-          <div class="settings-row-value">Français ›</div>
-        </div>
-        <div class="settings-row">
-          <div class="settings-row-label">
-            <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18V5l12-2v13" stroke="#8B5CF6" stroke-width="1.8" stroke-linecap="round"/><circle cx="6" cy="18" r="3" stroke="#8B5CF6" stroke-width="1.8"/><circle cx="18" cy="16" r="3" stroke="#8B5CF6" stroke-width="1.8"/></svg></div>
-            <div class="settings-row-text"><strong>Musique</strong></div>
-          </div>
-          <div class="toggle-switch on" data-toggle="music"><div class="toggle-switch-knob"></div></div>
-        </div>
-        <div class="settings-row">
-          <div class="settings-row-label">
-            <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H2v6h4l5 4V5z" stroke="#8B5CF6" stroke-width="1.8" stroke-linejoin="round"/><path d="M19 8a5 5 0 010 8" stroke="#8B5CF6" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-            <div class="settings-row-text"><strong>Effets sonores</strong></div>
-          </div>
-          <div class="toggle-switch on" data-toggle="sfx"><div class="toggle-switch-knob"></div></div>
-        </div>
-        <div class="settings-row">
-          <div class="settings-row-label">
-            <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L9 22l10-13.5H12.5L13 2z" stroke="#8B5CF6" stroke-width="1.5"/></svg></div>
-            <div class="settings-row-text"><strong>Animations</strong><span>Réduire les effets visuels</span></div>
-          </div>
-          <div class="toggle-switch" data-toggle="animations"><div class="toggle-switch-knob"></div></div>
-        </div>
-        <div class="settings-row">
-          <div class="settings-row-label">
-            <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#8B5CF6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="settings-row-text"><strong>Notifications</strong></div>
-          </div>
-          <div class="toggle-switch on" data-toggle="notif"><div class="toggle-switch-knob"></div></div>
-        </div>
-      </div>
-
-      <div class="settings-group">
-        <div class="settings-group-label">Compte</div>
-        <div class="settings-row"><div class="settings-row-label"><div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#8B5CF6" stroke-width="1.8"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="#8B5CF6" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="settings-row-text"><strong>Gérer le compte</strong></div></div><div class="settings-row-value">›</div></div>
-        <div class="settings-row"><div class="settings-row-label"><div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="#8B5CF6" stroke-width="1.8"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#8B5CF6" stroke-width="1.8"/></svg></div><div class="settings-row-text"><strong>Confidentialité</strong></div></div><div class="settings-row-value">›</div></div>
-      </div>
-
-      <div class="settings-group">
-        <div class="settings-group-label">Assistance</div>
-        <div class="settings-row"><div class="settings-row-label"><div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#8B5CF6" stroke-width="1.8"/><path d="M12 17v-1c0-1 .5-1.5 1.5-2.2A3 3 0 1010 8" stroke="#8B5CF6" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="settings-row-text"><strong>Aide &amp; support</strong></div></div><div class="settings-row-value">›</div></div>
-        <div class="settings-row"><div class="settings-row-label"><div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="#8B5CF6" stroke-width="1.8" stroke-linejoin="round"/></svg></div><div class="settings-row-text"><strong>Conditions d'utilisation</strong></div></div><div class="settings-row-value">›</div></div>
-      </div>
-
-      <div class="settings-group">
-        <button class="btn-secondary" id="btnLogout" style="width:100%;">Se déconnecter</button>
-        <button class="btn-danger-outline" id="btnDeleteAccount">Supprimer mon compte</button>
-      </div>
-      <div style="height:20px;"></div>
-    </div>
-  </section>
-
-  <!-- ============ DAILY MISSIONS SCREEN ============ -->
-  <section class="screen" id="screen-missions" aria-label="Missions journalières">
-    <div class="rift-line"></div>
-    <div class="missions-top">
-      <div class="profile-back" id="btnMissionsBack" role="button" aria-label="Retour" style="background:var(--nebula);border:1px solid var(--line);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#F3EEFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h2 class="display">MISSIONS DU JOUR</h2>
-    </div>
-    <div class="missions-scroll">
-      <div class="missions-reset-strip">
-        <span>Réinitialisation dans</span>
-        <strong class="mono" id="missionsResetTimer">07:42:15</strong>
-      </div>
-
-      <div class="mission-card done">
-        <div class="mission-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-14 9V3z" fill="#F3EEFF"/></svg></div>
-        <div class="mission-info">
-          <strong>Jouer 3 quiz</strong>
-          <div class="mission-bar-track"><div class="mission-bar-fill" style="width:100%;"></div></div>
-          <small class="mono">3/3 complété</small>
-        </div>
-        <div class="mission-reward"><div class="mission-claim-btn" id="claimMission1">Réclamer</div></div>
-      </div>
-
-      <div class="mission-card">
-        <div class="mission-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14.5 17.5L3 6V3h3l11.5 11.5" stroke="#F3EEFF" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="mission-info">
-          <strong>Gagner 5 duels</strong>
-          <div class="mission-bar-track"><div class="mission-bar-fill" style="width:40%;"></div></div>
-          <small class="mono">2/5 complété</small>
-        </div>
-        <div class="mission-reward"><div class="mission-claim-btn claimed">+30 💎</div></div>
-      </div>
-
-      <div class="mission-card">
-        <div class="mission-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#F3EEFF" stroke-width="2.5" stroke-linecap="round"/></svg></div>
-        <div class="mission-info">
-          <strong>Obtenir un score parfait</strong>
-          <div class="mission-bar-track"><div class="mission-bar-fill" style="width:0%;"></div></div>
-          <small class="mono">0/1 complété</small>
-        </div>
-        <div class="mission-reward"><div class="mission-claim-btn claimed">+80 XP</div></div>
-      </div>
-
-      <div class="mission-card">
-        <div class="mission-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#F3EEFF" stroke-width="1.8"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="#F3EEFF" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="mission-info">
-          <strong>Inviter un ami</strong>
-          <div class="mission-bar-track"><div class="mission-bar-fill" style="width:0%;"></div></div>
-          <small class="mono">0/1 complété</small>
-        </div>
-        <div class="mission-reward"><div class="mission-claim-btn claimed">+100 🪙</div></div>
-      </div>
-
-      <div class="mission-card">
-        <div class="mission-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 12v9H4v-9M2 7h20v5H2V7z" stroke="#F3EEFF" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
-        <div class="mission-info">
-          <strong>Ouvrir 1 coffre</strong>
-          <div class="mission-bar-track"><div class="mission-bar-fill" style="width:0%;"></div></div>
-          <small class="mono">0/1 complété</small>
-        </div>
-        <div class="mission-reward"><div class="mission-claim-btn claimed">+15 💎</div></div>
-      </div>
-      <div style="height:20px;"></div>
-    </div>
-  </section>
-
-  <!-- ============ EVENTS SCREEN ============ -->
-  <section class="screen" id="screen-events" aria-label="Événements">
-    <div class="rift-line"></div>
-    <div class="events-header" style="display:flex;align-items:center;gap:12px;">
-      <div class="profile-back" id="btnEventsBack" role="button" aria-label="Retour" style="background:var(--nebula);border:1px solid var(--line);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#F3EEFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h2 class="display">ÉVÉNEMENTS</h2>
-    </div>
-    <div class="events-scroll">
-      <div class="event-card ev-1">
-        <div class="event-timer-tag">⏳ 2j 14h</div>
-        <h3 class="display">RAID DU GARDIEN CRAMOISI</h3>
-        <p>Affronte le boss saisonnier en équipe et débloque des récompenses exclusives.</p>
-        <div class="event-join-btn" id="btnJoinEvent1">Rejoindre</div>
-      </div>
-      <div class="event-card ev-2">
-        <div class="event-timer-tag">⏳ 5j 02h</div>
-        <h3 class="display">CHASSE AU TRÉSOR</h3>
-        <p>Trouve des indices cachés dans les quiz Mecha pour gagner des gemmes.</p>
-        <div class="event-join-btn" id="btnJoinEvent2">Rejoindre</div>
-      </div>
-      <div class="event-card ev-3">
-        <div class="event-timer-tag">⏳ 12j 08h</div>
-        <h3 class="display">FESTIVAL D'ÉTÉ</h3>
-        <p>Double XP sur tous les quiz Slice of Life pendant toute la durée du festival.</p>
-        <div class="event-join-btn" id="btnJoinEvent3">Rejoindre</div>
-      </div>
-      <div style="height:20px;"></div>
-    </div>
-  </section>
-
-  <!-- ============ BATTLE PASS SCREEN ============ -->
-  <section class="screen" id="screen-battlepass" aria-label="Battle Pass">
-    <div class="rift-line"></div>
-    <div class="bp-scroll">
-      <div class="bp-header">
-        <div class="bp-header-top">
-          <div class="profile-back" id="btnBattlepassBack" role="button" aria-label="Retour" style="background:var(--nebula);border:1px solid var(--line);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#F3EEFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h2 class="display">BATTLE PASS</h2>
-        </div>
-        <div class="bp-season-banner">
-          <div class="bp-season-title">SAISON DE LA FAILLE</div>
-          <div class="bp-season-sub">Se termine dans 18 jours</div>
-          <div class="bp-level-row">
-            <div class="bp-level-badge">24</div>
-            <div class="bp-level-track">
-              <div class="bp-level-bar"><div class="bp-level-fill"></div></div>
-              <div class="bp-level-label mono">2 250 / 5 000 XP vers Niv. 25</div>
-            </div>
-          </div>
-          <div class="bp-premium-btn" id="btnUnlockPremium">Débloquer le Pass Premium — 950 💎</div>
-        </div>
-      </div>
-
-      <div class="bp-track-scroll">
-        <div class="bp-tier claimed">
-          <div class="bp-tier-num">NIV. 20</div>
-          <div class="bp-tier-reward"><div class="bp-tier-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#0A0714" stroke-width="3" stroke-linecap="round"/></svg></div><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#38E4E0" stroke-width="1.5"/></svg></div>
-        </div>
-        <div class="bp-tier unlocked">
-          <div class="bp-tier-num">NIV. 21</div>
-          <div class="bp-tier-reward"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M20 12v9H4v-9M2 7h20v5H2V7z" stroke="#38E4E0" stroke-width="1.5"/></svg></div>
-        </div>
-        <div class="bp-tier bp-tier-premium">
-          <div class="bp-tier-num">NIV. 22</div>
-          <div class="bp-tier-reward"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.5 5.7 21l2.3-7.2-6-4.6h7.6L12 2z" fill="#FFC857"/></svg></div>
-        </div>
-        <div class="bp-tier">
-          <div class="bp-tier-num">NIV. 23</div>
-          <div class="bp-tier-reward"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="#8B5CF6" stroke-width="1.5"/></svg></div>
-        </div>
-        <div class="bp-tier bp-tier-premium">
-          <div class="bp-tier-num">NIV. 24</div>
-          <div class="bp-tier-reward"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L9 22l10-13.5H12.5L13 2z" stroke="#FFC857" stroke-width="1.5"/></svg></div>
-        </div>
-        <div class="bp-tier">
-          <div class="bp-tier-num">NIV. 25</div>
-          <div class="bp-tier-reward"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M4 8l8-6 8 6" stroke="#8B5CF6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-      </div>
-      <div style="height:20px;"></div>
-    </div>
-  </section>
-
-  <!-- ============ LANGUAGE SCREEN ============ -->
-  <section class="screen" id="screen-language" aria-label="Langue">
-    <div class="rift-line"></div>
-    <div class="lang-top">
-      <div class="profile-back" id="btnLanguageBack" role="button" aria-label="Retour" style="background:var(--nebula);border:1px solid var(--line);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#F3EEFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h2 class="display">LANGUE</h2>
-    </div>
-    <div class="lang-scroll">
-      <div class="lang-row selected" data-lang="fr">
-        <div class="lang-row-label"><span class="lang-flag">🇫🇷</span>Français</div>
-        <div class="lang-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#0A0714" stroke-width="3" stroke-linecap="round"/></svg></div>
-      </div>
-      <div class="lang-row" data-lang="en">
-        <div class="lang-row-label"><span class="lang-flag">🇬🇧</span>English</div>
-        <div class="lang-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#0A0714" stroke-width="3" stroke-linecap="round"/></svg></div>
-      </div>
-      <div class="lang-row" data-lang="es">
-        <div class="lang-row-label"><span class="lang-flag">🇪🇸</span>Español</div>
-        <div class="lang-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#0A0714" stroke-width="3" stroke-linecap="round"/></svg></div>
-      </div>
-      <div class="lang-row" data-lang="ja">
-        <div class="lang-row-label"><span class="lang-flag">🇯🇵</span>日本語</div>
-        <div class="lang-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#0A0714" stroke-width="3" stroke-linecap="round"/></svg></div>
-      </div>
-      <div class="lang-row" data-lang="ht">
-        <div class="lang-row-label"><span class="lang-flag">🇭🇹</span>Kreyòl Ayisyen</div>
-        <div class="lang-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#0A0714" stroke-width="3" stroke-linecap="round"/></svg></div>
-      </div>
-      <div style="height:20px;"></div>
-    </div>
-  </section>
-
-  <!-- ============ DUEL MODE SCREEN ============ -->
-  <section class="screen" id="screen-duel" aria-label="Duel">
-    <div class="duel-top">
-      <div class="profile-back" id="btnDuelBack" role="button" aria-label="Retour" style="background:var(--nebula);border:1px solid var(--line);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#F3EEFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-    </div>
-
-    <div class="duel-searching" id="duelSearching">
-      <div class="duel-radar"><div class="duel-radar-core"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2" stroke="#0A0714" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
-      <div class="duel-searching-text display">RECHERCHE D'UN ADVERSAIRE…</div>
-      <div class="duel-searching-sub mono" id="duelSearchTime">00:03</div>
-      <div class="duel-cancel-btn" id="btnDuelCancel">Annuler</div>
-    </div>
-
-    <div class="duel-vs-screen" id="duelVsScreen">
-      <div class="duel-vs-row">
-        <div class="duel-fighter">
-          <div class="duel-fighter-avatar"><div class="avatar-fallback">寿</div></div>
-          <strong>Yuki_Sora</strong>
-          <span>NIV. 24</span>
-        </div>
-        <div class="duel-vs-badge">VS</div>
-        <div class="duel-fighter">
-          <div class="duel-fighter-avatar enemy"><div class="avatar-fallback">凛</div></div>
-          <strong>Rin_Katana</strong>
-          <span>NIV. 26</span>
-        </div>
-      </div>
-      <div class="duel-vs-countdown mono" id="duelCountdown">3</div>
-    </div>
-  </section>
-
-</div>
-
-<!-- Collection item detail modal -->
-<div class="modal-overlay" id="collectionModal">
-  <div class="modal-sheet">
-    <div class="modal-close-btn" id="btnCloseModal">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#F3EEFF" stroke-width="2" stroke-linecap="round"/></svg>
-    </div>
-    <div class="modal-handle"></div>
-    <div class="modal-hero-thumb" id="modalThumb"><svg id="modalThumbSvg" viewBox="0 0 24 24" fill="none"></svg></div>
-    <div class="modal-title" id="modalTitle"></div>
-    <div class="modal-sub" id="modalDesc"></div>
-  </div>
-</div>
-
-<div class="quiz-toast" id="quizToast">
-  <div class="toast-icon" id="toastIcon">
-    <svg id="toastSvg" viewBox="0 0 24 24" fill="none"></svg>
-  </div>
-  <div class="toast-label" id="toastLabel"></div>
-  <div class="toast-xp" id="toastXp"></div>
-</div>
-
-<script>
-/* ============================================
-   OTAQUIZ — LOGIQUE (Splash → Home → Quiz → Résultat)
-   ============================================ */
-(function () {
-  'use strict';
-
-  // ---------- Navigation entre écrans ----------
-  function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
-    document.getElementById(id).classList.add('active');
-  }
-
-  // ============================================
-  // SUPABASE — connexion, profil, sauvegarde
-  // ============================================
-  var SUPABASE_URL = 'https://tvmfigjjngtyhbbjctuk.supabase.co';
-  var SUPABASE_ANON_KEY = 'sb_publishable_My3Z3YqpwxJaxgbzz9nIfg_1FQu6SCU';
-  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  var currentProfile = null; // { id, username, level, xp, coins, gems, title }
-
-  function xpForNextLevel(level) {
-    return level * 200; // même règle simple utilisée partout dans l'app
-  }
-
-  // Récupère le profil du joueur connecté, le crée si besoin, puis met à jour l'UI.
-  function loadProfile() {
-    return sb.auth.getUser().then(function (res) {
-      var user = res.data && res.data.user;
-      if (!user) return null;
-      return sb.from('profiles').select('*').eq('id', user.id).single().then(function (r) {
-        if (r.error || !r.data) {
-          // Le trigger SQL crée normalement le profil automatiquement ;
-          // si jamais il manque encore (délai), on retente une fois.
-          return new Promise(function (resolve) {
-            setTimeout(function () {
-              sb.from('profiles').select('*').eq('id', user.id).single().then(function (r2) {
-                currentProfile = r2.data || null;
-                resolve(currentProfile);
-              });
-            }, 800);
-          });
-        }
-        currentProfile = r.data;
-        return currentProfile;
-      });
-    }).catch(function (err) {
-      console.error('loadProfile error', err);
-      return null;
-    });
-  }
-
-  // Sauvegarde les champs modifiés du profil courant vers Supabase.
-  function saveProfile(fields) {
-    if (!currentProfile) return Promise.resolve();
-    Object.assign(currentProfile, fields);
-    return sb.from('profiles').update(fields).eq('id', currentProfile.id).then(function (r) {
-      if (r.error) console.error('saveProfile error', r.error);
-      renderProfileUI();
-    });
-  }
-
-  function formatNum(n) {
-    return n.toLocaleString('fr-FR');
-  }
-
-  // Met à jour tous les affichages (topbar Accueil/Boutique, écran Profil) avec le profil courant.
-  function renderProfileUI() {
-    if (!currentProfile) return;
-    var p = currentProfile;
-    var initial = (p.username || '?').charAt(0).toUpperCase();
-
-    var setText = function (id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
-
-    setText('homeAvatarInitial', initial);
-    setText('homeAvatarName', p.username);
-    setText('homeAvatarLevel', 'NIV. ' + p.level + ' · ' + p.title);
-    setText('homeCoins', formatNum(p.coins));
-    setText('homeGems', formatNum(p.gems));
-
-    setText('shopCoins', formatNum(p.coins));
-    setText('shopGems', formatNum(p.gems));
-
-    setText('profileAvatarInitial', initial);
-    setText('profileName', p.username.toUpperCase());
-    setText('profileTitle', p.title);
-    setText('profileLevelLabel', 'NIV. ' + p.level);
-    var needed = xpForNextLevel(p.level);
-    setText('profileXpLabel', formatNum(p.xp) + ' / ' + formatNum(needed) + ' XP');
-    var fillEl = document.getElementById('profileLevelFill');
-    if (fillEl) fillEl.style.width = Math.min(100, (p.xp / needed) * 100) + '%';
-  }
-
-  // Ajoute de l'XP et gère la montée de niveau ; sauvegarde ensuite vers Supabase.
-  function grantXpAndCoins(xpGained, coinsGained) {
-    if (!currentProfile) return Promise.resolve();
-    var p = currentProfile;
-    var newXp = p.xp + xpGained;
-    var newLevel = p.level;
-    var needed = xpForNextLevel(newLevel);
-    while (newXp >= needed) {
-      newXp -= needed;
-      newLevel++;
-      needed = xpForNextLevel(newLevel);
-    }
-    return saveProfile({ xp: newXp, level: newLevel, coins: p.coins + coinsGained });
-  }
-
-  // ============================================
-  // FIN SUPABASE
-  // ============================================
-
-  // ---------- Splash screen : particules + transition auto ----------
-  function spawnParticles() {
-    var container = document.getElementById('splashParticles');
-    var count = 22;
-    for (var i = 0; i < count; i++) {
-      var p = document.createElement('div');
-      p.className = 'particle';
-      var size = 2 + Math.random() * 4;
-      p.style.width = size + 'px';
-      p.style.height = size + 'px';
-      p.style.left = (10 + Math.random() * 80) + '%';
-      p.style.top = (40 + Math.random() * 50) + '%';
-      p.style.animationDelay = (Math.random() * 3) + 's';
-      p.style.animationDuration = (3 + Math.random() * 2.5) + 's';
-      p.style.background = Math.random() > 0.5 ? 'var(--violet)' : (Math.random() > 0.5 ? 'var(--magenta)' : 'var(--cyan)');
-      container.appendChild(p);
-    }
-  }
-  spawnParticles();
-
-  // La transition auto du splash ne démarre qu'une fois l'utilisateur authentifié,
-  // puis charge son profil réel depuis Supabase avant d'afficher l'accueil.
-  function playSplashThenHome() {
-    showScreen('screen-splash');
-    loadProfile().then(function () {
-      setTimeout(function () {
-        renderProfileUI();
-        showScreen('screen-home');
-        setActiveNav('home');
-      }, 1600);
-    });
-  }
-
-  function showAuthError(formEl, message) {
-    var existing = formEl.querySelector('.auth-error-msg');
-    if (existing) existing.remove();
-    var div = document.createElement('div');
-    div.className = 'auth-error-msg';
-    div.style.cssText = 'color:#FF5C6C;font-size:11.5px;text-align:center;margin-top:2px;';
-    div.textContent = message;
-    formEl.appendChild(div);
-  }
-
-  // ---------- Auth screen: tabs Login / Register ----------
-  var tabLogin = document.getElementById('tabLogin');
-  var tabRegister = document.getElementById('tabRegister');
-  var authSlider = document.getElementById('authSlider');
-  var formLogin = document.getElementById('formLogin');
-  var formRegister = document.getElementById('formRegister');
-
-  tabLogin.addEventListener('click', function () {
-    tabLogin.classList.add('active');
-    tabRegister.classList.remove('active');
-    authSlider.classList.remove('to-register');
-    formLogin.style.display = 'flex';
-    formRegister.style.display = 'none';
-  });
-  tabRegister.addEventListener('click', function () {
-    tabRegister.classList.add('active');
-    tabLogin.classList.remove('active');
-    authSlider.classList.add('to-register');
-    formRegister.style.display = 'flex';
-    formLogin.style.display = 'none';
-  });
-
-  formLogin.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var email = document.getElementById('loginEmail').value.trim();
-    var password = document.getElementById('loginPassword').value;
-    var btn = formLogin.querySelector('.auth-submit');
-    btn.disabled = true; btn.textContent = 'Connexion…';
-    sb.auth.signInWithPassword({ email: email, password: password }).then(function (r) {
-      btn.disabled = false; btn.textContent = 'Se connecter';
-      if (r.error) {
-        showAuthError(formLogin, 'Email ou mot de passe incorrect.');
-        return;
-      }
-      playSplashThenHome();
-    });
-  });
-
-  formRegister.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var username = document.getElementById('regName').value.trim();
-    var email = document.getElementById('regEmail').value.trim();
-    var password = document.getElementById('regPassword').value;
-    var btn = formRegister.querySelector('.auth-submit');
-    btn.disabled = true; btn.textContent = 'Création…';
-    sb.auth.signUp({
-      email: email,
-      password: password,
-      options: { data: { username: username } }
-    }).then(function (r) {
-      btn.disabled = false; btn.textContent = 'Créer mon compte';
-      if (r.error) {
-        showAuthError(formRegister, r.error.message.indexOf('already') > -1 ? 'Cet email est déjà utilisé.' : 'Impossible de créer le compte (mot de passe trop court ?).');
-        return;
-      }
-      if (r.data.session) {
-        playSplashThenHome();
-      } else {
-        alert('Compte créé ! Vérifie ta boîte mail pour confirmer ton adresse avant de te connecter.');
-        tabLogin.click();
-      }
-    });
-  });
-
-  document.getElementById('btnGoogleLogin').addEventListener('click', function () {
-    sb.auth.signInWithOAuth({ provider: 'google' });
-  });
-
-  document.getElementById('btnGuestLogin').addEventListener('click', function () {
-    var btn = document.getElementById('btnGuestLogin');
-    btn.style.opacity = '0.6';
-    sb.auth.signInAnonymously().then(function (r) {
-      btn.style.opacity = '1';
-      if (r.error) {
-        alert("La connexion invité n'est pas activée sur ce projet Supabase (Authentication → Providers → Anonymous Sign-Ins à activer).");
-        return;
-      }
-      playSplashThenHome();
-    });
-  });
-
-  // ---------- Forgot password ----------
-  document.getElementById('btnForgotPassword').addEventListener('click', function () {
-    showScreen('screen-forgot');
-  });
-  document.getElementById('btnBackToLogin').addEventListener('click', function () {
-    showScreen('screen-auth');
-  });
-  document.getElementById('formForgot').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var email = document.getElementById('forgotEmail').value.trim();
-    sb.auth.resetPasswordForEmail(email).then(function (r) {
-      if (r.error) {
-        alert("Impossible d'envoyer le lien : " + r.error.message);
-        return;
-      }
-      alert('Si un compte existe avec cet email, un lien de réinitialisation vient de lui être envoyé.');
-      showScreen('screen-auth');
-    });
-  });
-
-  // Si l'utilisateur a déjà une session active (retour dans l'app), on saute directement à l'accueil.
-  sb.auth.getSession().then(function (r) {
-    if (r.data && r.data.session) {
-      playSplashThenHome();
-    }
-  });
-
-  // ---------- Bottom nav (shared across Home / Profile / Shop) ----------
-  function setActiveNav(target) {
-    document.querySelectorAll('.nav-item').forEach(function (n) {
-      n.classList.toggle('active', n.getAttribute('data-nav') === target);
-    });
-  }
-
-  document.querySelectorAll('.nav-item').forEach(function (item) {
-    item.addEventListener('click', function () {
-      var target = item.getAttribute('data-nav');
-      if (target === 'play') { startQuiz(); return; }
-      if (target === 'home') { showScreen('screen-home'); setActiveNav('home'); return; }
-      if (target === 'profile') { showScreen('screen-profile'); setActiveNav('profile'); return; }
-      if (target === 'shop') { showScreen('screen-shop'); setActiveNav('shop'); return; }
-      if (target === 'collection') { showScreen('screen-collection'); setActiveNav('collection'); return; }
-      setActiveNav(target);
-    });
-  });
-
-  // ---------- Profile screen ----------
-  document.getElementById('btnProfileBack').addEventListener('click', function () {
-    showScreen('screen-home');
-    setActiveNav('home');
-  });
-  document.getElementById('btnOpenSettings').addEventListener('click', function () {
-    showScreen('screen-settings');
-  });
-  document.querySelectorAll('.ptab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      document.querySelectorAll('.ptab').forEach(function (t) { t.classList.remove('active'); });
-      tab.classList.add('active');
-      var key = tab.getAttribute('data-ptab');
-      ['achievements', 'titles', 'history'].forEach(function (k) {
-        document.getElementById('ptabContent-' + k).style.display = (k === key) ? 'block' : 'none';
-      });
-    });
-  });
-  document.querySelectorAll('.title-chip').forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      document.querySelectorAll('.title-chip').forEach(function (c) { c.classList.remove('equipped'); c.querySelector('span').textContent = 'Débloqué'; });
-      chip.classList.add('equipped');
-      chip.querySelector('span').textContent = 'Équipé';
-    });
-  });
-
-  // ---------- Shop screen ----------
-  document.querySelectorAll('.shop-tab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      document.querySelectorAll('.shop-tab').forEach(function (t) { t.classList.remove('active'); });
-      tab.classList.add('active');
-      // Le filtrage réel par catégorie sera branché avec le backend dans une prochaine étape.
-    });
-  });
-  document.querySelectorAll('.shop-item').forEach(function (item) {
-    item.addEventListener('click', function () {
-      if (item.classList.contains('owned')) return;
-      var price = parseInt(item.getAttribute('data-price'), 10) || 0;
-      var currency = item.getAttribute('data-currency') || 'coin';
-      var name = item.querySelector('h5').textContent;
-
-      if (!currentProfile) { alert('Connecte-toi pour acheter des objets.'); return; }
-      var balance = currency === 'gem' ? currentProfile.gems : currentProfile.coins;
-      if (balance < price) {
-        alert("Solde insuffisant pour \"" + name + "\".");
-        return;
-      }
-      if (!confirm('Acheter "' + name + '" pour ' + price + ' ' + (currency === 'gem' ? 'gemmes' : 'pièces') + ' ?')) return;
-
-      var fields = {};
-      fields[currency === 'gem' ? 'gems' : 'coins'] = balance - price;
-      saveProfile(fields);
-
-      sb.from('inventory').insert({
-        user_id: currentProfile.id,
-        item_name: name,
-        price: price,
-        currency: currency
-      }).then(function (r) {
-        if (r.error) console.error('inventory insert error', r.error);
-      });
-
-      item.classList.add('owned');
-      var priceRow = item.querySelector('.shop-item-price');
-      priceRow.innerHTML = '<span class="shop-item-owned-tag">POSSÉDÉ</span>';
-    });
-  });
-  document.getElementById('btnBuyFeatured').addEventListener('click', function () {
-    if (!currentProfile) { alert('Connecte-toi pour acheter ce pack.'); return; }
-    if (currentProfile.gems < 480) { alert('Solde de gemmes insuffisant.'); return; }
-    if (!confirm('Débloquer le Pack Gardien Cramoisi pour 480 gemmes ?')) return;
-    saveProfile({ gems: currentProfile.gems - 480 });
-    sb.from('inventory').insert({
-      user_id: currentProfile.id,
-      item_name: 'Pack Gardien Cramoisi',
-      price: 480,
-      currency: 'gem'
-    });
-  });
-
-  // ---------- Collection screen ----------
-  document.querySelectorAll('.collection-filter').forEach(function (f) {
-    f.addEventListener('click', function () {
-      document.querySelectorAll('.collection-filter').forEach(function (x) { x.classList.remove('active'); });
-      f.classList.add('active');
-      // Le filtrage réel par type sera branché avec le backend dans une prochaine étape.
-    });
-  });
-
-  var collectionModal = document.getElementById('collectionModal');
-  var modalIconMap = {
-    1: '<path d="M13 2L4.5 13.5H11L9 22l10-13.5H12.5L13 2z" fill="#EC4899"/>',
-    2: '<rect x="4" y="4" width="16" height="16" rx="3" stroke="#38E4E0" stroke-width="2"/>',
-    3: '<path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.5 5.7 21l2.3-7.2-6-4.6h7.6L12 2z" fill="#FFC857"/>',
-    4: '<path d="M12 2v20M4 8l8-6 8 6" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
-  };
-  document.querySelectorAll('.collection-card:not(.locked)').forEach(function (card) {
-    card.addEventListener('click', function () {
-      var name = card.getAttribute('data-name');
-      var desc = card.getAttribute('data-desc');
-      var colorKey = card.getAttribute('data-color');
-      document.getElementById('modalTitle').textContent = name;
-      document.getElementById('modalDesc').textContent = desc;
-      document.getElementById('modalThumbSvg').innerHTML = modalIconMap[colorKey] || '';
-      var thumb = document.getElementById('modalThumb');
-      thumb.className = 'modal-hero-thumb cc-bg-' + colorKey;
-      collectionModal.classList.add('show');
-    });
-  });
-  document.querySelectorAll('.collection-card.locked').forEach(function (card) {
-    card.addEventListener('click', function () {
-      alert('Ce personnage est encore verrouillé. Continue à jouer pour le débloquer !');
-    });
-  });
-  document.getElementById('btnCloseModal').addEventListener('click', function () {
-    collectionModal.classList.remove('show');
-  });
-  collectionModal.addEventListener('click', function (e) {
-    if (e.target === collectionModal) collectionModal.classList.remove('show');
-  });
-
-  // ---------- Rank screen ----------
-  document.getElementById('btnRankBack').addEventListener('click', function () {
-    showScreen('screen-home');
-    setActiveNav('home');
-  });
-
-  // ---------- Settings screen ----------
-  document.getElementById('btnSettingsBack').addEventListener('click', function () {
-    showScreen('screen-profile');
-  });
-  document.querySelectorAll('.toggle-switch').forEach(function (t) {
-    t.addEventListener('click', function () {
-      t.classList.toggle('on');
-    });
-  });
-  document.getElementById('btnLogout').addEventListener('click', function () {
-    if (confirm('Te déconnecter de OtaQuiz ?')) {
-      sb.auth.signOut().then(function () {
-        currentProfile = null;
-        showScreen('screen-auth');
-      });
-    }
-  });
-  document.getElementById('btnDeleteAccount').addEventListener('click', function () {
-    if (confirm('Cette action est irréversible. Supprimer définitivement ton compte ?')) {
-      alert("La suppression de compte doit être confirmée côté serveur pour des raisons de sécurité. Contacte le support pour finaliser cette action.");
-    }
-  });
-
-  // ---------- Home: Events & Battle Pass entry points ----------
-  document.getElementById('btnHeroEyebrow').addEventListener('click', function () {
-    showScreen('screen-events');
-  });
-  document.getElementById('btnOpenBattlepass').addEventListener('click', function () {
-    showScreen('screen-battlepass');
-  });
-
-  // ---------- Daily Missions screen ----------
-  document.getElementById('btnMissionsBack').addEventListener('click', function () {
-    showScreen('screen-home');
-    setActiveNav('home');
-  });
-  document.getElementById('claimMission1').addEventListener('click', function (e) {
-    e.target.textContent = 'Réclamé ✓';
-    e.target.classList.add('claimed');
-    grantXpAndCoins(0, 50);
-  });
-
-  var missionsResetSeconds = 7 * 3600 + 42 * 60 + 15;
-  setInterval(function () {
-    if (missionsResetSeconds <= 0) return;
-    missionsResetSeconds--;
-    var h = Math.floor(missionsResetSeconds / 3600);
-    var m = Math.floor((missionsResetSeconds % 3600) / 60);
-    var s = missionsResetSeconds % 60;
-    var pad = function (n) { return n < 10 ? '0' + n : n; };
-    var el = document.getElementById('missionsResetTimer');
-    if (el) el.textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
-  }, 1000);
-
-  // ---------- Events screen ----------
-  document.getElementById('btnEventsBack').addEventListener('click', function () {
-    showScreen('screen-home');
-    setActiveNav('home');
-  });
-  ['btnJoinEvent1', 'btnJoinEvent2', 'btnJoinEvent3'].forEach(function (id) {
-    document.getElementById(id).addEventListener('click', function () {
-      alert('Tu as rejoint cet événement ! Retrouve-le depuis la Boutique et le Battle Pass.');
-    });
-  });
-
-  // ---------- Battle Pass screen ----------
-  document.getElementById('btnBattlepassBack').addEventListener('click', function () {
-    showScreen('screen-home');
-    setActiveNav('home');
-  });
-  document.getElementById('btnUnlockPremium').addEventListener('click', function () {
-    if (confirm('Débloquer le Pass Premium pour 950 gemmes ?')) {
-      document.querySelectorAll('.bp-tier-premium').forEach(function (t) { t.classList.add('unlocked'); });
-      alert('Pass Premium débloqué ! Toutes les récompenses premium sont maintenant accessibles.');
-    }
-  });
-  document.querySelectorAll('.bp-tier.unlocked .bp-tier-reward, .bp-tier-premium.unlocked .bp-tier-reward').forEach(function (r) {
-    r.addEventListener('click', function () {
-      var tier = r.closest('.bp-tier');
-      if (!tier.classList.contains('claimed')) {
-        tier.classList.add('claimed');
-      }
-    });
-  });
-
-  // ---------- Language screen ----------
-  document.getElementById('rowLanguage').addEventListener('click', function () {
-    showScreen('screen-language');
-  });
-  document.getElementById('btnLanguageBack').addEventListener('click', function () {
-    showScreen('screen-settings');
-  });
-  document.querySelectorAll('.lang-row').forEach(function (row) {
-    row.addEventListener('click', function () {
-      document.querySelectorAll('.lang-row').forEach(function (r) { r.classList.remove('selected'); });
-      row.classList.add('selected');
-    });
-  });
-
-  // ---------- Duel mode ----------
-  var duelTimers = [];
-  function clearDuelTimers() {
-    duelTimers.forEach(function (t) { clearTimeout(t); clearInterval(t); });
-    duelTimers = [];
-  }
-
-  function startDuelSearch() {
-    showScreen('screen-duel');
-    document.getElementById('duelSearching').style.display = 'flex';
-    document.getElementById('duelVsScreen').classList.remove('show');
-
-    var elapsed = 0;
-    var searchTimeEl = document.getElementById('duelSearchTime');
-    searchTimeEl.textContent = '00:00';
-    var searchInterval = setInterval(function () {
-      elapsed++;
-      var m = Math.floor(elapsed / 60);
-      var s = elapsed % 60;
-      var pad = function (n) { return n < 10 ? '0' + n : n; };
-      searchTimeEl.textContent = pad(m) + ':' + pad(s);
-    }, 1000);
-    duelTimers.push(searchInterval);
-
-    var foundTimeout = setTimeout(function () {
-      clearInterval(searchInterval);
-      document.getElementById('duelSearching').style.display = 'none';
-      document.getElementById('duelVsScreen').classList.add('show');
-      startDuelCountdown();
-    }, 2600);
-    duelTimers.push(foundTimeout);
-  }
-
-  function startDuelCountdown() {
-    var count = 3;
-    var countdownEl = document.getElementById('duelCountdown');
-    countdownEl.textContent = count;
-    var countdownInterval = setInterval(function () {
-      count--;
-      if (count <= 0) {
-        clearInterval(countdownInterval);
-        startQuiz();
-        return;
-      }
-      countdownEl.textContent = count;
-    }, 800);
-    duelTimers.push(countdownInterval);
-  }
-
-  document.getElementById('btnDuelCancel').addEventListener('click', function () {
-    clearDuelTimers();
-    showScreen('screen-home');
-    setActiveNav('home');
-  });
-  document.getElementById('btnDuelBack').addEventListener('click', function () {
-    clearDuelTimers();
-    showScreen('screen-home');
-    setActiveNav('home');
-  });
-
-  // ---------- Nav "Jouer" / autres écrans (Home) ----------
-
-  document.getElementById('btnHeroPlay').addEventListener('click', startQuiz);
-  document.getElementById('btnContinue').addEventListener('click', startQuiz);
-  document.querySelectorAll('.category-card').forEach(function (c) { c.addEventListener('click', startQuiz); });
-  document.getElementById('btnQuickMissions').addEventListener('click', function () {
-    showScreen('screen-missions');
-  });
-  document.getElementById('btnQuickDuel').addEventListener('click', function () {
-    startDuelSearch();
-  });
-  document.getElementById('btnQuickRank').addEventListener('click', function () {
-    showScreen('screen-rank');
-  });
-  document.getElementById('btnDaily').addEventListener('click', function () {
-    if (!currentProfile) { alert('Connecte-toi pour réclamer ta récompense.'); return; }
-    saveProfile({ coins: currentProfile.coins + 60, gems: currentProfile.gems + 5 });
-    alert('Récompense journalière réclamée : +60 pièces, +5 gemmes.');
-  });
-  document.getElementById('btnQuizClose').addEventListener('click', function () {
-    if (confirm('Quitter le quiz ? Ta progression sur cette manche sera perdue.')) {
-      showScreen('screen-home');
-      resetQuizState();
-    }
-  });
-
-  // ---------- Quiz engine ----------
-  var QUESTIONS = [
-    {
-      q: "Quel élément est associé au héros qui manie une lame forgée dans la foudre ?",
-      options: ["Eau abyssale", "Foudre céleste", "Ombre errante", "Flamme sacrée"],
-      correct: 1
-    },
-    {
-      q: "Dans quel type de monde se déroule généralement un récit « isekai » ?",
-      options: ["Un monde parallèle ou fantastique", "Le monde réel uniquement", "Un futur post-apocalyptique fixe", "Une salle de classe"],
-      correct: 0
-    },
-    {
-      q: "Quel terme désigne un protagoniste qui progresse par l'entraînement acharné plutôt que le talent inné ?",
-      options: ["Antagoniste", "Deutéragoniste", "Héros autodidacte", "Mentor"],
-      correct: 2
-    },
-    {
-      q: "Un pilote de mecha contrôle généralement sa machine depuis :",
-      options: ["Un cockpit intégré", "Une télécommande à distance uniquement", "Un simple clavier", "Aucun contrôle, elle est autonome"],
-      correct: 0
-    },
-    {
-      q: "Le genre « slice of life » se concentre principalement sur :",
-      options: ["Des combats épiques", "Le quotidien réaliste des personnages", "Des invasions extraterrestres", "Des tournois d'arts martiaux uniquement"],
-      correct: 1
-    }
-  ];
-
-  var quizState = {
-    index: 0,
-    correctCount: 0,
-    xp: 0,
-    combo: 0,
-    bestCombo: 0,
-    lives: 3,
-    timer: null,
-    timeLeft: 15,
-    locked: false
-  };
-
-  var CIRCUMFERENCE = 2 * Math.PI * 11; // r=11
-
-  function resetQuizState() {
-    quizState = { index: 0, correctCount: 0, xp: 0, combo: 0, bestCombo: 0, lives: 3, timer: null, timeLeft: 15, locked: false };
-    document.querySelectorAll('.life-heart').forEach(function (h) { h.classList.remove('lost'); });
-    document.getElementById('comboBadge').classList.remove('show');
-  }
-
-  function startQuiz() {
-    resetQuizState();
-    showScreen('screen-quiz');
-    loadQuestion();
-  }
-
-  function loadQuestion() {
-    quizState.locked = false;
-    var q = QUESTIONS[quizState.index % QUESTIONS.length];
-    document.getElementById('quizQuestion').textContent = q.q;
-
-    var pct = (quizState.index / QUESTIONS.length) * 100;
-    document.getElementById('quizProgressFill').style.width = pct + '%';
-
-    var optionsWrap = document.getElementById('quizOptions');
-    optionsWrap.innerHTML = '';
-    var letters = ['A', 'B', 'C', 'D'];
-    q.options.forEach(function (opt, i) {
-      var div = document.createElement('div');
-      div.className = 'quiz-option';
-      div.setAttribute('data-correct', i === q.correct ? 'true' : 'false');
-      div.setAttribute('tabindex', '0');
-      div.setAttribute('role', 'button');
-      div.innerHTML = '<div class="opt-letter">' + letters[i] + '</div><span>' + opt + '</span>';
-      div.addEventListener('click', function () { handleAnswer(div); });
-      optionsWrap.appendChild(div);
-    });
-
-    startTimer();
-  }
-
-  function startTimer() {
-    clearInterval(quizState.timer);
-    quizState.timeLeft = 15;
-    var circle = document.getElementById('timerCircle');
-    var ring = document.getElementById('timerRing');
-    var text = document.getElementById('timerText');
-    ring.classList.remove('warn');
-    circle.style.stroke = '';
-    updateTimerDisplay();
-
-    quizState.timer = setInterval(function () {
-      quizState.timeLeft--;
-      updateTimerDisplay();
-      if (quizState.timeLeft <= 5) ring.classList.add('warn');
-      if (quizState.timeLeft <= 0) {
-        clearInterval(quizState.timer);
-        if (!quizState.locked) {
-          handleAnswer(null); // temps écoulé = mauvaise réponse
-        }
-      }
-    }, 1000);
-  }
-
-  function updateTimerDisplay() {
-    var circle = document.getElementById('timerCircle');
-    var text = document.getElementById('timerText');
-    var frac = Math.max(quizState.timeLeft, 0) / 15;
-    circle.style.strokeDashoffset = (CIRCUMFERENCE * (1 - frac)).toFixed(1);
-    text.textContent = Math.max(quizState.timeLeft, 0);
-  }
-
-  function handleAnswer(selectedEl) {
-    if (quizState.locked) return;
-    quizState.locked = true;
-    clearInterval(quizState.timer);
-
-    var options = document.querySelectorAll('.quiz-option');
-    var isCorrect = selectedEl ? selectedEl.getAttribute('data-correct') === 'true' : false;
-
-    options.forEach(function (o) {
-      o.classList.add('locked');
-      if (o.getAttribute('data-correct') === 'true') {
-        o.classList.add('correct');
-      } else if (o === selectedEl) {
-        o.classList.add('wrong');
-      } else {
-        o.classList.add('dimmed');
-      }
-    });
-
-    if (isCorrect) {
-      quizState.correctCount++;
-      quizState.combo++;
-      quizState.bestCombo = Math.max(quizState.bestCombo, quizState.combo);
-      var gained = 20 + (quizState.combo > 1 ? (quizState.combo - 1) * 5 : 0);
-      quizState.xp += gained;
-      showToast(true, gained);
-      updateComboBadge();
-      spawnConfetti();
-    } else {
-      quizState.combo = 0;
-      updateComboBadge();
-      loseLife();
-      showToast(false, 0);
-      document.getElementById('app').classList.add('screen-shake');
-      setTimeout(function () { document.getElementById('app').classList.remove('screen-shake'); }, 400);
-    }
-
-    setTimeout(function () {
-      quizState.index++;
-      if (quizState.lives <= 0 || quizState.index >= QUESTIONS.length) {
-        finishQuiz();
-      } else {
-        loadQuestion();
-      }
-    }, 1300);
-  }
-
-  function loseLife() {
-    quizState.lives--;
-    var hearts = document.querySelectorAll('.life-heart');
-    var lostIndex = 3 - quizState.lives - 1;
-    if (hearts[lostIndex]) hearts[lostIndex].classList.add('lost');
-  }
-
-  function updateComboBadge() {
-    var badge = document.getElementById('comboBadge');
-    var text = document.getElementById('comboText');
-    if (quizState.combo >= 2) {
-      text.textContent = '×' + quizState.combo + ' COMBO';
-      badge.classList.add('show');
-      badge.classList.remove('pulse');
-      void badge.offsetWidth;
-      badge.classList.add('pulse');
-    } else {
-      badge.classList.remove('show');
-    }
-  }
-
-  function showToast(isGood, xpGained) {
-    var toast = document.getElementById('quizToast');
-    var icon = document.getElementById('toastIcon');
-    var svg = document.getElementById('toastSvg');
-    var label = document.getElementById('toastLabel');
-    var xpEl = document.getElementById('toastXp');
-
-    toast.classList.remove('show');
-    void toast.offsetWidth;
-
-    if (isGood) {
-      icon.className = 'toast-icon good';
-      svg.innerHTML = '<path d="M20 6L9 17l-5-5" stroke="#38E4E0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
-      label.textContent = 'CORRECT !';
-      label.className = 'toast-label good';
-      xpEl.textContent = '+' + xpGained + ' XP';
-      xpEl.style.display = 'inline-block';
-    } else {
-      icon.className = 'toast-icon bad';
-      svg.innerHTML = '<path d="M18 6L6 18M6 6l12 12" stroke="#FF5C6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
-      label.textContent = 'RATÉ';
-      label.className = 'toast-label bad';
-      xpEl.style.display = 'none';
-    }
-
-    toast.classList.add('show');
-  }
-
-  function spawnConfetti() {
-    var colors = ['#8B5CF6', '#EC4899', '#38E4E0', '#FFC857'];
-    for (var i = 0; i < 16; i++) {
-      var piece = document.createElement('div');
-      piece.className = 'confetti-piece';
-      piece.style.left = (10 + Math.random() * 80) + '%';
-      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-      piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-      piece.style.animationDuration = (1.4 + Math.random() * 1.2) + 's';
-      document.body.appendChild(piece);
-      (function (el) {
-        setTimeout(function () { el.remove(); }, 2800);
-      })(piece);
-    }
-  }
-
-  function finishQuiz() {
-    clearInterval(quizState.timer);
-    var total = QUESTIONS.length;
-    var pct = Math.round((quizState.correctCount / total) * 100);
-
-    document.getElementById('resultScorePct').textContent = pct + '%';
-    document.getElementById('resultCorrect').textContent = quizState.correctCount + '/' + total;
-    document.getElementById('resultXP').textContent = '+' + quizState.xp;
-    document.getElementById('resultCombo').textContent = '×' + quizState.bestCombo;
-
-    var title = document.getElementById('resultTitle');
-    var sub = document.querySelector('.result-sub');
-    if (quizState.lives <= 0) {
-      title.textContent = 'MISSION ÉCHOUÉE';
-      sub.textContent = "Tu as perdu toutes tes vies. Réessaie, ton rang t'attend.";
-    } else if (pct >= 90) {
-      title.textContent = 'RANG PARFAIT';
-      sub.textContent = "Tu as dominé ce chapitre. Ton instinct de otaku ne te trompe jamais.";
-    } else if (pct >= 60) {
-      title.textContent = 'BIEN JOUÉ';
-      sub.textContent = "Solide performance. Encore un effort pour le rang parfait.";
-    } else {
-      title.textContent = 'À REVOIR';
-      sub.textContent = "Ce chapitre t'a résisté. Retente ta chance pour progresser.";
-    }
-
-    showScreen('screen-result');
-
-    // ---------- Sauvegarde du résultat dans Supabase ----------
-    var coinsEarned = quizState.correctCount * 10;
-    grantXpAndCoins(quizState.xp, coinsEarned);
-
-    if (currentProfile) {
-      sb.from('quiz_results').insert({
-        user_id: currentProfile.id,
-        correct_count: quizState.correctCount,
-        total_questions: total,
-        xp_earned: quizState.xp,
-        best_combo: quizState.bestCombo
-      }).then(function (r) {
-        if (r.error) console.error('quiz_results insert error', r.error);
-      });
-    }
-  }
-
-  document.getElementById('btnResultContinue').addEventListener('click', function () {
-    showScreen('screen-home');
-    setActiveNav('home');
-  });
-  document.getElementById('btnResultHome').addEventListener('click', function () {
-    showScreen('screen-home');
-    setActiveNav('home');
-  });
-
-  // ---------- Service worker (offline) ----------
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('./sw.js').catch(function () {});
-    });
-  }
-})();
-</script>
-</body>
-</html>
+        <div class="nav
